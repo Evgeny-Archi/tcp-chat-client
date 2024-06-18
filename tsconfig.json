@@ -1,0 +1,33 @@
+{
+	"compilerOptions": {
+		"alwaysStrict": true,
+		"noImplicitAny": true,
+		"strictNullChecks": true,
+		"strictFunctionTypes": true,
+		"strictBindCallApply": true,
+		"sourceMap": true,
+    "outDir": "build",
+    "rootDir": "src",
+		"module": "ES2020",
+		"target": "es6",
+		"allowJs": true,
+		"moduleResolution": "node",
+		"esModuleInterop": true,
+		"resolveJsonModule": true,
+		"allowSyntheticDefaultImports": true,
+		"forceConsistentCasingInFileNames": true,
+		"declaration": true,
+		"lib": [
+			"es6",
+      "ESNext"
+		]
+	},
+	"include": [
+		"src/**/*"
+	],
+	"exclude": [
+		"node_modules",
+		"build"
+	]
+}
+

@@ -1,4 +1,28 @@
 {
-  "name": "client",
-  "packageManager": "yarn@4.2.2"
+    "name": "client",
+    "packageManager": "yarn@4.2.2",
+    "type": "module",
+    "exports": {
+        ".": {
+            "types": "./build/index.d.ts",
+            "import": "./build/index.js"
+        }
+    },
+    "scripts": {
+        "watch": "tsx --env-file=.env.dev src/index.ts",
+        "build": "rm -rf build & echo Building... & tsc --diagnostics",
+        "start": "node --env-file=.env.prod build/index.js"
+    },
+    "devDependencies": {
+        "@eslint/js": "^9.4.0",
+        "@types/eslint__js": "^8.42.3",
+        "@types/node": "^20.14.2",
+        "eslint": "^9.4.0",
+        "eslint-config-prettier": "^9.1.0",
+        "eslint-plugin-prettier": "^5.1.3",
+        "prettier": "^3.3.1",
+        "tsx": "^4.15.1",
+        "typescript": "^5.4.5",
+        "typescript-eslint": "^7.13.0"
+    }
 }

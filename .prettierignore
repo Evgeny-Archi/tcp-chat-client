@@ -1,0 +1,5 @@
+# ignore artifacts
+build
+
+**/.git
+**/node_modules
