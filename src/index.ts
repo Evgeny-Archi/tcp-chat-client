@@ -1,5 +1,6 @@
-import Client from './client';
+import ClientService from './client-service';
+import MessageController from './message-controller';
 
-const client = new Client();
+const client = new ClientService(MessageController);
 
-client.connect(process.env.PORT || '0');
+client.connect();
