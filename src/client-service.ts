@@ -1,19 +1,24 @@
 import net, { Socket } from 'node:net';
 import { Buffer } from 'node:buffer';
-import MessageController from './message-controller';
+import { randomBytes } from 'node:crypto';
 import EventEmitter from 'node:events';
+import { Controller } from './types';
 
 interface ClientError extends Error {
     code?: string;
 }
 
+const SESSION_ID_LENGTH = 16;
+
 class ClientService {
     private socket: Socket;
     private controller: EventEmitter;
+    private sessionId: string;
 
-    constructor(Controller: typeof MessageController) {
+    constructor(Controller: Controller) {
         this.socket = new net.Socket();
         this.controller = new Controller();
+        this.sessionId = randomBytes(SESSION_ID_LENGTH).toString('hex');
 
         this.socket.on('close', this.onClose.bind(this));
         this.socket.on('error', this.onError.bind(this));
@@ -32,6 +37,12 @@ class ClientService {
 
     connect(cb?: () => void) {
         this.socket.connect(process.env.PORT || '0', cb);
+    }
+
+    private onConnect() {
+        console.log('Connected to Chat');
+        // @ts-expect-error: hz kak typing this oop
+        this.controller.apply();
     }
 
     private onData(response: Buffer) {
@@ -56,12 +67,6 @@ class ClientService {
             return;
         }
         console.error(e);
-    }
-
-    private onConnect() {
-        console.log('Connected to Chat');
-        // @ts-expect-error: hz kak typing this oop
-        this.controller.apply();
     }
 
     private onEnd() {
